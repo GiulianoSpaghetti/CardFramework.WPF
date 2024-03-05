@@ -7,7 +7,6 @@
  *
  */
 
-using System;
 using System.Windows;
 
 namespace org.altervista.numerone.framework

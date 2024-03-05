@@ -7,7 +7,6 @@
  *
  */
 
-using System;
 using System.Windows;
 
 namespace org.altervista.numerone.framework
@@ -19,5 +18,7 @@ namespace org.altervista.numerone.framework
 		UInt16 GetPunteggio(UInt16 Carta);
 		string GetSemeStr(UInt16 carta, String mazzo, ResourceDictionary d);
 		UInt16 GetNumero(UInt16 seme, UInt16 valore);
-	};
+		public int CompareTo(UInt16 Carta, UInt16 Carta1);
+
+    };
 }

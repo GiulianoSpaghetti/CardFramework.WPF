@@ -17,19 +17,19 @@ namespace org.altervista.numerone.framework
                    valore,
                    punteggio;
         private string semeStr;
-        private readonly CartaHelperBriscola helper;
+        private static CartaHelper helper;
         private readonly static Carta[] carte = new Carta[40];
         private BitmapImage img;
 
         private Carta(UInt16 n, CartaHelperBriscola h)
         {
-            helper = h;
             seme = helper.GetSeme(n);
             valore = helper.GetValore(n);
             punteggio = helper.GetPunteggio(n);
         }
         public static void Inizializza(UInt16 n, CartaHelperBriscola h)
         {
+            helper = h;
             for (UInt16 i = 0; i < n; i++)
             {
                 carte[i] = new Carta(i, h);
@@ -52,7 +52,12 @@ namespace org.altervista.numerone.framework
 
         public override string ToString()
         {
-            return $"{valore + 1} di {semeStr}{(StessoSeme(helper.GetCartaBriscola()) ? "*" : " ")} ";
+            string s=$"{valore + 1} di {semeStr}";
+            if (helper is CartaHelperBriscola)
+                s += StessoSeme((helper as CartaHelperBriscola).GetCartaBriscola()) ? "*" : " ";
+            else
+                s += " ";
+            return s;
         }
 
         public static BitmapImage GetImmagine(UInt16 quale)
@@ -65,7 +70,7 @@ namespace org.altervista.numerone.framework
             return img;
         }
 
-        public static bool CaricaImmagini(string path, Mazzo m, UInt16 n, CartaHelperBriscola helper, ResourceDictionary d)
+        public static bool CaricaImmagini(string path, Mazzo m, UInt16 n, ResourceDictionary d)
         {
             for (UInt16 i = 0; i < n; i++)
             {
@@ -77,7 +82,7 @@ namespace org.altervista.numerone.framework
                     catch (Exception ex)
                     {
                         m.SetNome("Napoletano");
-                        CaricaImmagini(path, m, n, helper, d);
+                        CaricaImmagini(path, m, n, d);
                         return false;
                     }
                 else
@@ -86,6 +91,11 @@ namespace org.altervista.numerone.framework
                 carte[i].semeStr = helper.GetSemeStr(i, m.GetNome(), d);
             }
             return true;
+        }
+
+        public static void SetHelper(CartaHelper h)
+        {
+            helper = h;
         }
     }
 }
