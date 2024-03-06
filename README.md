@@ -4,11 +4,11 @@ Il resource dictionary deve includere 8 campi: bastoni, coppe, spade, denari, cu
 Il codice di apertura deve essere:
 
 
-  e = new ElaboratoreCarteBriscola(briscolaDaPunti);
+  e = new ElaboratoreCarteBriscola(briscolaDaPunti, 40, 0, 39);
   m = new Mazzo(e);
   m.SetNome(nomeMazzo);
-  Carta.Inizializza(numerocarte, CartaHelperBriscola.GetIstanza(e));
- if (!Carta.CaricaImmagini(path, m, numerocarte, CartaHelperBriscola.GetIstanza(e), d))
+  Carta.Inizializza(numerocarte, new CartaHelperBriscola(elaboratoreCarteBriscola.getCartaBriscola)));
+ if (!Carta.CaricaImmagini(path, m, numerocarte, d))
       new ToastContentBuilder().AddArgument((string)d["MazzoIncompleto"] as string).AddText($"{d["CaricatoNapoletano"] as string}").AddAudio(new Uri("ms-winsoundevent:Notification.Reminder")).Show();
 
   if (nomeMazzo == "Napoletano")
