@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
@@ -13,8 +13,12 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>cardgame</PackageTags>
-    <PackageReleaseNotes>Release Iniziale</PackageReleaseNotes>
+    <PackageReleaseNotes>Ora elabora una serie di numeri pseudocasuali consecutivi a partire da una determinata soglia</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/numerunix/CardFramework.WPF/blob/master/README.md</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/numerunix/CardFramework.WPF</RepositoryUrl>
+    <Version>1.2.1</Version>
+    <Authors>numerone</Authors>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,11 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\source\CBriscola-Demo\CBriscola-Demo.Android\Icon.png">
+    <None Include="..\..\CBriscola-Demo\CBriscola-Demo.Android\Icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\source\CBriscolaUWP.new\LICENSE.txt">
+    <None Include="..\..\CBriscolaUWP.new\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

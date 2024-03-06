@@ -14,15 +14,6 @@ namespace org.altervista.numerone.framework
     public class CartaHelperBriscola : CartaHelper {
 		private readonly UInt16 CartaBriscola;
 		public CartaHelperBriscola(UInt16 briscola) { CartaBriscola = briscola; }
-		private static CartaHelperBriscola istanza;
-		public static CartaHelperBriscola GetIstanza(ElaboratoreCarteBriscola e) {
-			if (istanza == null) {
-				if (e == null)
-					throw new ArgumentNullException("Chiamata a CartaHelperBriscola::getIstanza con istanza==NULL e e==NULL");
-				istanza = new CartaHelperBriscola(ElaboratoreCarteBriscola.GetCartaBriscola());
-			}
-			return istanza;
-		}
 		public UInt16 GetSeme(UInt16 Carta) {
 			return (UInt16)(Carta / 10);
 		}

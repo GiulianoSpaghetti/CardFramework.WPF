@@ -18,10 +18,10 @@ namespace org.altervista.numerone.framework
                    punteggio;
         private string semeStr;
         private static CartaHelper helper;
-        private readonly static Carta[] carte = new Carta[40];
+        private static Carta[] carte;
         private BitmapImage img;
 
-        private Carta(UInt16 n, CartaHelperBriscola h)
+        private Carta(UInt16 n)
         {
             seme = helper.GetSeme(n);
             valore = helper.GetValore(n);
@@ -30,9 +30,10 @@ namespace org.altervista.numerone.framework
         public static void Inizializza(UInt16 n, CartaHelperBriscola h)
         {
             helper = h;
+            carte = new Carta[n];
             for (UInt16 i = 0; i < n; i++)
             {
-                carte[i] = new Carta(i, h);
+                carte[i] = new Carta(i);
 
             }
         }

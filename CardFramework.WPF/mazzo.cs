@@ -17,7 +17,7 @@ namespace org.altervista.numerone.framework
         private String nome;
         private void Mischia()
         {
-            for (numeroCarte = 0; numeroCarte < 40; numeroCarte++)
+            for (numeroCarte = 0; numeroCarte < elaboratore.GetNumeroCarte(); numeroCarte++)
                 carte[numeroCarte] = elaboratore.GetCarta();
         }
 
@@ -25,7 +25,7 @@ namespace org.altervista.numerone.framework
         public Mazzo(ElaboratoreCarte e)
         {
             elaboratore = e;
-            carte = new UInt16[40];
+            carte = new UInt16[elaboratore.GetNumeroCarte()];
             Mischia();
         }
         public UInt16 GetNumeroCarte() { return numeroCarte; }
