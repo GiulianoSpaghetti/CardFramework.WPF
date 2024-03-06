@@ -3,7 +3,7 @@ La codebase è in .net, con l'aggiunta di un resourcedictionary da passare.
 Il resource dictionary deve includere 8 campi: bastoni, coppe, spade, denari, cuori, quadri, fiori e picche da tradurre dall'italiano nella lingua desiderata, i 4 semi dei mazzi di carte italiane, e francesi.
 Il codice di apertura deve essere:
 
-
+`code()`
   e = new ElaboratoreCarteBriscola(briscolaDaPunti, 40, 0, 39);
   m = new Mazzo(e);
   m.SetNome(nomeMazzo);
