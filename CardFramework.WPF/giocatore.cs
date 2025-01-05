@@ -103,6 +103,10 @@ namespace org.altervista.numerone.framework
 		{
 			iCartaGiocata = helper.Gioca(i, mano, numeroCarte, g1.GetCartaGiocata());
 		}
+	          public void Gioca(UInt16 i, List<Carta> piatto)
+        {
+            iCartaGiocata = helper.Gioca(i, mano, numeroCarte, piatto);
+        }
 		public void AggiornaPunteggio(Giocatore g)
 		{
 			helper.AggiornaPunteggio(ref punteggio, GetCartaGiocata(), g.GetCartaGiocata());
