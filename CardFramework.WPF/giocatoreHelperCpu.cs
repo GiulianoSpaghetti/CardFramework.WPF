@@ -87,5 +87,9 @@ namespace org.altervista.numerone.framework
             return i;
         }
         public void AggiornaPunteggio(ref UInt16 punteggioAttuale, Carta c, Carta c1) { punteggioAttuale = (UInt16)(punteggioAttuale + c.GetPunteggio() + c1.GetPunteggio()); }
+         public ushort Gioca(ushort i, Carta[] v, ushort numeroCarte, List<Carta> piatto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
