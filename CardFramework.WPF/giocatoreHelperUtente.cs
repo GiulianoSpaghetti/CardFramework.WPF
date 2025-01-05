@@ -31,6 +31,9 @@ namespace org.altervista.numerone.framework
 		{
 			punteggioAttuale = (UInt16)(punteggioAttuale + c.GetPunteggio() + c1.GetPunteggio());
 		}
-
+ 		public ushort Gioca(ushort i, Carta[] v, ushort numeroCarte, List<Carta> piatto)
+        	{
+            		throw new NotImplementedException();
+        	}
     };
 }
