@@ -10,7 +10,9 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace org.altervista.numerone.framework
-{
+{    /// <summary>
+     /// Indica la struttura carta che identifica una carta del mazzo
+     /// </summary>
     public class Carta
     {
         private readonly UInt16 seme,
@@ -20,14 +22,22 @@ namespace org.altervista.numerone.framework
         private static CartaHelper helper;
         private static Carta[] carte;
         private BitmapImage img;
-
+        /// <summary>
+        /// Costruttore privato perché le carte devono essere immutabili.
+        /// </summary>
+        /// <param name="n">numero intero indicante il numero intero della carta</param>
         private Carta(UInt16 n)
         {
             seme = helper.GetSeme(n);
             valore = helper.GetValore(n);
             punteggio = helper.GetPunteggio(n);
         }
-        public static void Inizializza(UInt16 n, CartaHelperBriscola h)
+        /// <summary>
+        /// Vero costruttore, identifica un numero di carte pari ad n, careica le immagini dal filesystem se possibile ed inizializza il vettore delle carte
+        /// </summary>
+        /// <param name="n">numero delle carte</param>
+        /// <param name="h">per evitare una ereditarietà selvaggia, si è scelto di usare una classe a parte per il comportamento specifico della classe</param>
+        public static void Inizializza(UInt16 n, org.altervista.numerone.framework.briscola.CartaHelper h)
         {
             helper = h;
             carte = new Carta[n];
@@ -37,12 +47,43 @@ namespace org.altervista.numerone.framework
 
             }
         }
+        /// <summary>
+        /// Restituisce la struttura indicante la carta numero quale
+        /// </summary>
+        /// <param name="quale">numero della carta da prendere</param>
+        /// <returns>la struttura indicante la carta presa</returns>
         public static Carta GetCarta(UInt16 quale) { return carte[quale]; }
+        /// <summary>
+        /// Getter che ritorna il seme della carta
+        /// </summary>
+        /// <returns>seme della carta</returns>
         public UInt16 GetSeme() { return seme; }
+        /// <summary>
+        /// Getter che ritorna il valore della carta
+        /// </summary>
+        /// <returns>valore della carta</returns>
         public UInt16 GetValore() { return valore; }
+        /// <summary>
+        /// Getter che restuistuisce il punteggio della carta
+        /// </summary>
+        /// <returns>punteggio della carta</returns>
         public UInt16 GetPunteggio() { return punteggio; }
+        /// <summary>
+        /// Getter che restituisce il seme in valore stringa, uno degli 8 passati ad inizializza
+        /// </summary>
+        /// <returns>il seme in formato stringa della carta</returns>
         public string GetSemeStr() { return semeStr; }
+        /// <summary>
+        /// Dice se due carte hanno lo stesso seme
+        /// </summary>
+        /// <param name="c1">carta con cui confrontare il seme, può essere null</param>
+        /// <returns>true se la carta chiamante ha lo stesso seme di c1</returns>
         public bool StessoSeme(Carta c1) { if (c1 == null) return false; else return seme == c1.GetSeme(); }
+        /// <summary>
+        /// Compara due carte
+        /// </summary>
+        /// <param name="c1">carta con cui confrontare il seme, può essere null</param>
+        /// <returns>-1 se maggiore la prima, zero se uguale, 1 se maggiore la seconda</returns>
         public int CompareTo(Carta c1)
         {
             if (c1 == null)
@@ -54,23 +95,37 @@ namespace org.altervista.numerone.framework
         public override string ToString()
         {
             string s=$"{valore + 1} di {semeStr}";
-            if (helper is CartaHelperBriscola)
-                s += StessoSeme((helper as CartaHelperBriscola).GetCartaBriscola()) ? "*" : " ";
+            if (helper is org.altervista.numerone.framework.briscola.CartaHelper)
+                s += StessoSeme((helper as org.altervista.numerone.framework.briscola.CartaHelper).GetCartaBriscola()) ? "*" : " ";
             else
                 s += " ";
             return s;
         }
-
+        /// <summary>
+        /// Retituisce l'immagine della carta quale
+        /// </summary>
+        /// <param name="quale">numero della carta</param>
+        /// <returns>l'immagine della carta</returns>
         public static BitmapImage GetImmagine(UInt16 quale)
         {
             return carte[quale].img;
         }
-
+        /// <summary>
+        /// Restituisce l'immagine della carta chiamata
+        /// </summary>
+        /// <returns>l'immagine della carta</returns>
         public BitmapImage GetImmagine()
         {
             return img;
         }
-
+        /// <summary>
+        /// Carica in memoria le immagini delle carte
+        /// </summary>
+        /// <param name="path">path in cui cercare le carte</param>
+        /// <param name="m">prende il nome del mazzo e stabilisce se caricarle dalle risorse o dal filesystem</param>
+        /// <param name="n">numero di carte da caricare</param>
+        /// <param name="d">dizionario contente le stringhe italiane e francesi delle carte</param>
+        /// <returns>true se le carte sono state caricate, false se le carte sono state caricate dalle risorse e non era richiesto</returns>      
         public static bool CaricaImmagini(string path, Mazzo m, UInt16 n, ResourceDictionary d)
         {
             for (UInt16 i = 0; i < n; i++)
@@ -93,7 +148,15 @@ namespace org.altervista.numerone.framework
             }
             return true;
         }
-
+        /// <summary>
+        /// restituisce la struttura che identifica il valore di vbriscola
+        /// </summary>
+        /// <returns>la struttura indicante la carta di briscola</returns>
+        public static Carta GetCartaBriscola() { return (helper as org.altervista.numerone.framework.briscola.CartaHelper).GetCartaBriscola(); }
+        /// <summary>
+        /// setter dela classe che identifica il comportamento che le carte devono avere
+        /// </summary>
+        /// <param name="h">classe che incapsula il comportamti delle carte</param>
         public static void SetHelper(CartaHelper h)
         {
             helper = h;
