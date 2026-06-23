@@ -1,0 +1,50 @@
+name: .NET MAUI Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    env:
+      Solution_Name: CardFramework.maui.slnx
+      Configuration: ${{ matrix.configuration }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 10.0.x
+
+    - name: Restore packages
+      run: dotnet restore CardFramework.wpf.sln
+
+    - name: Build MAUI Libraries
+      run: |
+        dotnet build CardFramework.WPF/CardFramework.WPF.csproj -c $env:Configuration
+      shell: pwsh
+
+    - name: Pack Nuget Package
+      run: |
+        dotnet pack CardFramework.WPF/CardFramework.WPF.csproj
+      shell: pwsh
+
+    - name: Upload NUGET artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: NUGET
+        path: CardFramework.WPF/bin/Release
+        include-hidden-files: true
+        if-no-files-found: error
